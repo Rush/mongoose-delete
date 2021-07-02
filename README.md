@@ -1,13 +1,12 @@
 Mongoose Delete Plugin
 =========
 
-mongoose-delete is simple and lightweight plugin that enables soft deletion of documents in MongoDB. This code is based on [riyadhalnur's](https://github.com/riyadhalnur) plugin [mongoose-softdelete](https://github.com/riyadhalnur/mongoose-softdelete).
+mongoose-delete is simple and lightweight plugin that enables soft deletion of documents in MongoDB. This code is based on [mongoose-delete](https://github.com/dsanel/mongoose-delete) which in turn was based on  [riyadhalnur's](https://github.com/riyadhalnur) plugin [mongoose-softdelete](https://github.com/riyadhalnur/mongoose-softdelete).
 
-[![Build Status](https://travis-ci.org/dsanel/mongoose-delete.svg?branch=master)](https://travis-ci.org/dsanel/mongoose-delete)
 
 ## Features
-  - [Add __delete()__ method on document (do not override standard __remove()__ method)](#simple-usage)
-  - [Add __deleteById()__ static method](#simple-usage)
+  - [Add __softDelete()__ method on document (do not override standard __remove()__ method and __delete()__ methods)](#simple-usage)
+  - [Add __softDeleteById()__ static method](#simple-usage)
   - [Add __deleted__ (true-false) key on document](#simple-usage)
   - [Add __deletedAt__ key to store time of deletion](#save-time-of-deletion)
   - [Add __deletedBy__ key to record who deleted document](#who-has-deleted-the-data)
@@ -33,7 +32,7 @@ We can use this plugin with or without options.
 ### Simple usage
 
 ```javascript
-var mongoose_delete = require('mongoose-delete');
+var mongoose_delete = require('mongoose-delete-plugin');
 
 var PetSchema = new Schema({
     name: String
@@ -62,7 +61,7 @@ fluffy.save(function () {
 var examplePetId = mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
 // INFO: Example usage of deleteById static method
-Pet.deleteById(examplePetId, function (err, petDocument) {
+Pet.softDeleteById(examplePetId, function (err, petDocument) {
     // mongodb: { deleted: true, name: 'Fluffy', _id: '53da93b1...' }
 });
 
@@ -88,7 +87,7 @@ fluffy.save(function () {
     // mongodb: { deleted: false, name: 'Fluffy' }
 
     // note: you should invoke exactly delete() method instead of standard fluffy.remove()
-    fluffy.delete(function () {
+    fluffy.softDelete(function () {
         // mongodb: { deleted: true, name: 'Fluffy', deletedAt: ISODate("2014-08-01T10:34:53.171Z")}
 
         fluffy.restore(function () {
@@ -121,7 +120,7 @@ fluffy.save(function () {
     var idUser = mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
     // note: you should invoke exactly delete() method instead of standard fluffy.remove()
-    fluffy.delete(idUser, function () {
+    fluffy.softDelete(idUser, function () {
         // mongodb: { deleted: true, name: 'Fluffy', deletedBy: ObjectId("53da93b16b4a6670076b16bf")}
 
         fluffy.restore(function () {
@@ -149,16 +148,16 @@ var Pet = mongoose.model('Pet', PetSchema);
 var idUser = mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
 // Delete multiple object, callback
-Pet.delete(function (err, result) { ... });
-Pet.delete({age:10}, function (err, result) { ... });
-Pet.delete({}, idUser, function (err, result) { ... });
-Pet.delete({age:10}, idUser, function (err, result) { ... });
+Pet.softDelete(function (err, result) { ... });
+Pet.softDelete({age:10}, function (err, result) { ... });
+Pet.softDelete({}, idUser, function (err, result) { ... });
+Pet.softDelete({age:10}, idUser, function (err, result) { ... });
 
 // Delete multiple object, promise
-Pet.delete().exec(function (err, result) { ... });
-Pet.delete({age:10}).exec(function (err, result) { ... });
-Pet.delete({}, idUser).exec(function (err, result) { ... });
-Pet.delete({age:10}, idUser).exec(function (err, result) { ... });
+Pet.softDelete().exec(function (err, result) { ... });
+Pet.softDelete({age:10}).exec(function (err, result) { ... });
+Pet.softDelete({}, idUser).exec(function (err, result) { ... });
+Pet.softDelete({age:10}, idUser).exec(function (err, result) { ... });
 
 // Restore multiple object, callback
 Pet.restore(function (err, result) { ... });

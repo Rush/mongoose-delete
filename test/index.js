@@ -42,11 +42,11 @@ describe("mongoose_delete delete method without callback function", function () 
         });
     });
 
-    it("delete() -> should return a thenable (Promise)", function (done) {
+    it("softDelete() -> should return a thenable (Promise)", function (done) {
         Test0.findOne({name: 'Puffy'}, function (err, puffy) {
             should.not.exist(err);
 
-            expect(puffy.delete()).to.have.property('then');
+            expect(puffy.softDelete()).to.have.property('then');
             done();
         });
     });
@@ -74,11 +74,11 @@ describe("mongoose_delete plugin without options", function () {
         });
     });
 
-    it("delete() -> should set deleted:true", function (done) {
+    it("softDelete() -> should set deleted:true", function (done) {
         Test1.findOne({name: 'Puffy1'}, function (err, puffy) {
             should.not.exist(err);
 
-            puffy.delete(function (err, success) {
+            puffy.softDelete(function (err, success) {
                 if (err) {
                     throw err;
                 }
@@ -88,11 +88,11 @@ describe("mongoose_delete plugin without options", function () {
         });
     });
 
-    it("delete() -> should not save 'deletedAt' value", function (done) {
+    it("softDelete() -> should not save 'deletedAt' value", function (done) {
         Test1.findOne({name: 'Puffy1'}, function (err, puffy) {
             should.not.exist(err);
 
-            puffy.delete(function (err, success) {
+            puffy.softDelete(function (err, success) {
                 if (err) {
                     throw err;
                 }
@@ -102,8 +102,8 @@ describe("mongoose_delete plugin without options", function () {
         });
     });
 
-    it("deleteById() -> should set deleted:true and not save 'deletedAt'", function (done) {
-        Test1.deleteById(puffy2._id, function (err, documents) {
+    it("softDeleteById() -> should set deleted:true and not save 'deletedAt'", function (done) {
+        Test1.softDeleteById(puffy2._id, function (err, documents) {
             should.not.exist(err);
             documents.ok.should.equal(1);
             documents.n.should.equal(1);
@@ -117,10 +117,10 @@ describe("mongoose_delete plugin without options", function () {
         });
     });
 
-    it("deleteById() -> should throws exception: first argument error", function (done) {
+    it("softDeleteById() -> should throws exception: first argument error", function (done) {
         var errMessage = 'First argument is mandatory and must not be a function.';
-        expect(Test1.deleteById).to.throw(errMessage);
-        expect(() => { Test1.deleteById(() => {}) }).to.throw(errMessage);
+        expect(Test1.softDeleteById).to.throw(errMessage);
+        expect(() => { Test1.softDeleteById(() => {}) }).to.throw(errMessage);
         done();
     });
 
@@ -161,11 +161,11 @@ describe("mongoose_delete plugin without options, using option: typeKey", functi
         });
     });
 
-    it("delete() -> should set deleted:true", function (done) {
+    it("softDelete() -> should set deleted:true", function (done) {
         Test1.findOne({name: 'Puffy1'}, function (err, puffy) {
             should.not.exist(err);
 
-            puffy.delete(function (err, success) {
+            puffy.softDelete(function (err, success) {
                 if (err) {
                     throw err;
                 }
@@ -175,11 +175,11 @@ describe("mongoose_delete plugin without options, using option: typeKey", functi
         });
     });
 
-    it("delete() -> should not save 'deletedAt' value", function (done) {
+    it("softDelete() -> should not save 'deletedAt' value", function (done) {
         Test1.findOne({name: 'Puffy1'}, function (err, puffy) {
             should.not.exist(err);
 
-            puffy.delete(function (err, success) {
+            puffy.softDelete(function (err, success) {
                 if (err) {
                     throw err;
                 }
@@ -189,8 +189,8 @@ describe("mongoose_delete plugin without options, using option: typeKey", functi
         });
     });
 
-    it("deleteById() -> should set deleted:true and not save 'deletedAt'", function (done) {
-        Test1.deleteById(puffy2._id, function (err, documents) {
+    it("softDeleteById() -> should set deleted:true and not save 'deletedAt'", function (done) {
+        Test1.softDeleteById(puffy2._id, function (err, documents) {
             should.not.exist(err);
             documents.ok.should.equal(1);
             documents.n.should.equal(1);
@@ -241,11 +241,11 @@ describe("mongoose_delete with options: { deletedAt : true }", function () {
         });
     });
 
-    it("delete() -> should save 'deletedAt' key", function (done) {
+    it("softDelete() -> should save 'deletedAt' key", function (done) {
         Test2.findOne({name: 'Puffy1'}, function (err, puffy) {
             should.not.exist(err);
 
-            puffy.delete(function (err, success) {
+            puffy.softDelete(function (err, success) {
                 if (err) {
                     throw err;
                 }
@@ -255,8 +255,8 @@ describe("mongoose_delete with options: { deletedAt : true }", function () {
         });
     });
 
-    it("deleteById() -> should save 'deletedAt' key", function (done) {
-        Test2.deleteById(puffy2._id, function (err, documents) {
+    it("softDeleteById() -> should save 'deletedAt' key", function (done) {
+        Test2.softDeleteById(puffy2._id, function (err, documents) {
             should.not.exist(err);
             documents.ok.should.equal(1);
             documents.n.should.equal(1);
@@ -308,11 +308,11 @@ describe("mongoose_delete with options: { deletedAt : true }, using option: type
         });
     });
 
-    it("delete() -> should save 'deletedAt' key", function (done) {
+    it("softDelete() -> should save 'deletedAt' key", function (done) {
         Test2.findOne({name: 'Puffy1'}, function (err, puffy) {
             should.not.exist(err);
 
-            puffy.delete(function (err, success) {
+            puffy.softDelete(function (err, success) {
                 if (err) {
                     throw err;
                 }
@@ -322,8 +322,8 @@ describe("mongoose_delete with options: { deletedAt : true }, using option: type
         });
     });
 
-    it("deleteById() -> should save 'deletedAt' key", function (done) {
-        Test2.deleteById(puffy2._id, function (err, documents) {
+    it("softDeleteById() -> should save 'deletedAt' key", function (done) {
+        Test2.softDeleteById(puffy2._id, function (err, documents) {
             should.not.exist(err);
             documents.ok.should.equal(1);
             documents.n.should.equal(1);
@@ -377,11 +377,11 @@ describe("mongoose_delete with options: { deletedBy : true }", function () {
 
     var id = mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
-    it("delete() -> should save 'deletedBy' key", function (done) {
+    it("softDelete() -> should save 'deletedBy' key", function (done) {
         Test3.findOne({name: 'Puffy1'}, function (err, puffy) {
             should.not.exist(err);
 
-            puffy.delete(id, function (err, success) {
+            puffy.softDelete(id, function (err, success) {
                 should.not.exist(err);
 
                 success.deletedBy.should.equal(id);
@@ -390,8 +390,8 @@ describe("mongoose_delete with options: { deletedBy : true }", function () {
         });
     });
 
-    it("deleteById() -> should save `deletedBy` key", function (done) {
-        Test3.deleteById(puffy2._id, id, function (err, documents) {
+    it("softDeleteById() -> should save `deletedBy` key", function (done) {
+        Test3.softDeleteById(puffy2._id, id, function (err, documents) {
             should.not.exist(err);
             documents.ok.should.equal(1);
             documents.n.should.equal(1);
@@ -445,11 +445,11 @@ describe("mongoose_delete with options: { deletedBy : true }, using option: type
 
     var id = mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
-    it("delete() -> should save `deletedBy` key", function (done) {
+    it("softDelete() -> should save `deletedBy` key", function (done) {
         Test3.findOne({name: 'Puffy1'}, function (err, puffy) {
             should.not.exist(err);
 
-            puffy.delete(id, function (err, success) {
+            puffy.softDelete(id, function (err, success) {
                 should.not.exist(err);
 
                 success.deletedBy.should.equal(id);
@@ -458,8 +458,8 @@ describe("mongoose_delete with options: { deletedBy : true }, using option: type
         });
     });
 
-    it("deleteById() -> should save deletedBy key", function (done) {
-        Test3.deleteById(puffy2._id, id, function (err, documents) {
+    it("softDeleteById() -> should save deletedBy key", function (done) {
+        Test3.softDeleteById(puffy2._id, id, function (err, documents) {
             should.not.exist(err);
             documents.ok.should.equal(1);
             documents.n.should.equal(1);
@@ -513,11 +513,11 @@ describe("mongoose_delete with options: { deletedBy : true, deletedByType: Strin
 
     var id = "custom_user_id_12345678";
 
-    it("delete() -> should save deletedBy key", function (done) {
+    it("softDelete() -> should save deletedBy key", function (done) {
         Test.findOne({name: 'Puffy1'}, function (err, puffy) {
             should.not.exist(err);
 
-            puffy.delete(id, function (err, success) {
+            puffy.softDelete(id, function (err, success) {
                 should.not.exist(err);
 
                 success.deletedBy.should.equal(id);
@@ -526,8 +526,8 @@ describe("mongoose_delete with options: { deletedBy : true, deletedByType: Strin
         });
     });
 
-    it("deleteById() -> should save deletedBy key", function (done) {
-        Test.deleteById(puffy2._id, id, function (err, documents) {
+    it("softDeleteById() -> should save deletedBy key", function (done) {
+        Test.softDeleteById(puffy2._id, id, function (err, documents) {
             should.not.exist(err);
             documents.ok.should.equal(1);
             documents.n.should.equal(1);
@@ -1498,7 +1498,7 @@ describe("delete multiple documents", function () {
     });
 
     it("delete(cb) -> delete multiple documents", function (done) {
-        TestModel.delete(function (err, documents) {
+        TestModel.softDelete(function (err, documents) {
             should.not.exist(err);
 
             documents.ok.should.equal(1);
@@ -1509,7 +1509,7 @@ describe("delete multiple documents", function () {
     });
 
     it("delete(query, cb) -> delete multiple documents with conditions", function (done) {
-        TestModel.delete({side: 0}, function (err, documents) {
+        TestModel.softDelete({side: 0}, function (err, documents) {
             should.not.exist(err);
 
             documents.ok.should.equal(1);
@@ -1523,7 +1523,7 @@ describe("delete multiple documents", function () {
     it("delete(query, deletedBy, cb) -> delete multiple documents with conditions and user ID", function (done) {
         var userId = mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
-        TestModel.delete({side: 1}, userId, function (err, documents) {
+        TestModel.softDelete({side: 1}, userId, function (err, documents) {
             should.not.exist(err);
 
             documents.ok.should.equal(1);
@@ -1533,8 +1533,8 @@ describe("delete multiple documents", function () {
         });
     });
 
-    it("delete().exec() -> delete all documents", function (done) {
-        TestModel.delete().exec(function (err, documents) {
+    it("softDelete().exec() -> delete all documents", function (done) {
+        TestModel.softDelete().exec(function (err, documents) {
             should.not.exist(err);
 
             documents.ok.should.equal(1);
@@ -1545,7 +1545,7 @@ describe("delete multiple documents", function () {
     });
 
     it("delete(query).exec() -> delete multiple documents with conditions", function (done) {
-        TestModel.delete({side: 0}).exec(function (err, documents) {
+        TestModel.softDelete({side: 0}).exec(function (err, documents) {
             should.not.exist(err);
 
             documents.ok.should.equal(1);
@@ -1558,7 +1558,7 @@ describe("delete multiple documents", function () {
     it("delete(query, deletedBy).exec() -> delete multiple documents with conditions and user ID", function (done) {
         var userId = mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
-        TestModel.delete({side: 1}, userId).exec(function (err, documents) {
+        TestModel.softDelete({side: 1}, userId).exec(function (err, documents) {
             should.not.exist(err);
 
             documents.ok.should.equal(1);
@@ -1571,7 +1571,7 @@ describe("delete multiple documents", function () {
     it("delete({}, deletedBy).exec() -> delete all documents passing user ID", function (done) {
         var userId = mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
-        TestModel.delete({}, userId).exec(function (err, documents) {
+        TestModel.softDelete({}, userId).exec(function (err, documents) {
             should.not.exist(err);
 
             documents.ok.should.equal(1);
@@ -1601,7 +1601,7 @@ describe("delete multiple documents (no plugin options)", function () {
     });
 
     it("delete(cb) -> delete multiple documents", function (done) {
-        TestModel.delete(function (err, documents) {
+        TestModel.softDelete(function (err, documents) {
             should.not.exist(err);
 
             documents.ok.should.equal(1);
@@ -1724,12 +1724,12 @@ describe("model validation on delete (default): { validateBeforeDelete: true }",
         mongoose.connection.db.dropCollection("mongoose_restore_test", done);
     });
 
-    it("delete() -> should raise ValidationError error", function (done) {
+    it("softDelete() -> should raise ValidationError error", function (done) {
         TestModel.findOne({name: 'Luke Skywalker'}, function (err, luke) {
             should.not.exist(err);
             luke.name = "";
 
-            luke.delete(function (err) {
+            luke.softDelete(function (err) {
                 err.should.exist;
                 err.name.should.exist;
                 err.name.should.equal('ValidationError');
@@ -1738,12 +1738,12 @@ describe("model validation on delete (default): { validateBeforeDelete: true }",
         });
     });
 
-    it("delete() -> should not raise ValidationError error", function (done) {
+    it("softDelete() -> should not raise ValidationError error", function (done) {
         TestModel.findOne({name: 'Luke Skywalker'}, function (err, luke) {
             should.not.exist(err);
             luke.name = "Test Name";
 
-            luke.delete(function (err) {
+            luke.softDelete(function (err) {
                 should.not.exist(err);
                 done();
             });
@@ -1769,24 +1769,24 @@ describe("model validation on delete: { validateBeforeDelete: false }", function
         mongoose.connection.db.dropCollection("mongoose_restore_test", done);
     });
 
-    it("delete() -> should not raise ValidationError error", function (done) {
+    it("softDelete() -> should not raise ValidationError error", function (done) {
         TestModel.findOne({name: 'Luke Skywalker'}, function (err, luke) {
             should.not.exist(err);
             luke.name = "";
 
-            luke.delete(function (err) {
+            luke.softDelete(function (err) {
                 should.not.exist(err);
                 done();
             });
         });
     });
 
-    it("delete() -> should not raise ValidationError error", function (done) {
+    it("softDelete() -> should not raise ValidationError error", function (done) {
         TestModel.findOne({name: 'Luke Skywalker'}, function (err, luke) {
             should.not.exist(err);
             luke.name = "Test Name";
 
-            luke.delete(function (err) {
+            luke.softDelete(function (err) {
                 should.not.exist(err);
                 done();
             });

@@ -230,7 +230,7 @@ module.exports = function (schema, options) {
         });
     }
 
-    schema.methods.delete = function (deletedBy, cb) {
+    schema.methods.softDelete = function (deletedBy, cb) {
         if (typeof deletedBy === 'function') {
           cb = deletedBy;
           deletedBy = null;
@@ -253,7 +253,7 @@ module.exports = function (schema, options) {
         return this.save(cb);
     };
 
-    schema.statics.delete =  function (conditions, deletedBy, callback) {
+    schema.statics.softDelete =  function (conditions, deletedBy, callback) {
         if (typeof deletedBy === 'function') {
             callback = deletedBy;
             conditions = conditions;
@@ -279,7 +279,7 @@ module.exports = function (schema, options) {
         return updateDocumentsByQuery(this, conditions, doc, callback);
     };
 
-    schema.statics.deleteById =  function (id, deletedBy, callback) {
+    schema.statics.softDeleteById =  function (id, deletedBy, callback) {
         if (arguments.length === 0 || typeof id === 'function') {
             var msg = 'First argument is mandatory and must not be a function.';
             throw new TypeError(msg);
@@ -289,7 +289,7 @@ module.exports = function (schema, options) {
             _id: id
         };
 
-        return this.delete(conditions, deletedBy, callback);
+        return this.softDelete(conditions, deletedBy, callback);
     };
 
     schema.methods.restore = function (callback) {

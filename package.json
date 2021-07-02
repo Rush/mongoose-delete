@@ -1,16 +1,20 @@
 {
-  "name": "mongoose-delete",
-  "version": "0.5.3",
+  "name": "mongoose-delete-plugin",
+  "version": "1.0.3",
   "description": "Mongoose soft delete plugin",
-  "author": "Sanel Deljkic <dsanel@gmail.com> (http://dsanel.github.io/)",
+  "author": "Damian Kaczmarek <rush@rushbase.net>",
+  "contributors": [
+    "Sanel Deljkic <dsanel@gmail.com> (http://dsanel.github.io/)"
+  ],
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "mocha",
     "test-cov": "nyc --reporter=html --reporter=text ./node_modules/mocha/bin/_mocha -- -R spec ./test/*"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:dsanel/mongoose-delete.git"
+    "url": "git@github.com:Rush/mongoose-delete-plugin.git"
   },
   "keywords": [
     "mongoose",
@@ -22,11 +26,11 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dsanel/mongoose-delete/issues"
+    "url": "https://github.com/Rush/mongoose-delete-plugin/issues"
   },
-  "homepage": "https://github.com/dsanel/mongoose-delete",
+  "homepage": "https://github.com/Rush/mongoose-delete-plugin",
   "peerDependencies": {
-    "mongoose": "4.x || 5.x"
+    "mongoose": "^5.13"
   },
   "devDependencies": {
     "chai": "^4.2.0",
