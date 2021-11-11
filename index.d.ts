@@ -6,7 +6,7 @@ declare module 'mongoose-delete-plugin' {
   /**
    * This is interface helper to declaring model that using Soft Delete
    */
-  declare namespace mongoose_delete {
+  namespace mongoose_delete {
       interface Callback<T, THIS = T> {
           (this: THIS, err: any, doc: T): void;
       }
@@ -40,17 +40,17 @@ declare module 'mongoose-delete-plugin' {
           updateDeleted: typeof mongoose.Model.update;
           /** Update all documents including deleted */
           updateWithDeleted: typeof mongoose.Model.update;
-  
+
           /**
            * Delete documents by conditions
            */
-          softDelete(conditions?: any, deleteBy?: any, fn?: Callback<T, this>): mongoose.Query<T> & QueryHelpers;
-  
+          softDelete(conditions?: any, deleteBy?: any, fn?: Callback<T, this>): ReturnType<mongoose.Document['update']>;
+
           /**
            * Restore documents by conditions
            */
-          restore(conditions?: any, fn?: Callback<T, this>): mongoose.Query<T> & QueryHelpers;
-  
+          restore(conditions?: any, fn?: Callback<T, this>): ReturnType<mongoose.Document['save']>;
+
           /**
            * Delete a document by ID
            */
@@ -58,9 +58,9 @@ declare module 'mongoose-delete-plugin' {
               id?: string | mongoose.Types.ObjectId | Callback<T, this>,
               deleteBy?: string | mongoose.Types.ObjectId | mongoose.Document | Callback<T, this>,
               fn?: Callback<T, this>,
-          ): mongoose.Query<T> & QueryHelpers;
+          ): ReturnType<mongoose.Document['save']>;
       }
-  
+
       interface SoftDeleteDocument
           extends mongoose.Document,
           SoftDeleteInterface {
@@ -84,7 +84,7 @@ declare module 'mongoose-delete-plugin' {
       deletedBy: boolean;
       indexFields: boolean | 'all' | Array<keyof mongoose_delete.SoftDeleteInterface>;
       validateBeforeDelete: boolean;
-  
+
       /**
        * DeleteBy Schema type, equal to
        * ```
@@ -98,8 +98,7 @@ declare module 'mongoose-delete-plugin' {
        */
       deletedByType: any;
   }
-  
-  declare function mongoose_delete<Doc>(schema: mongoose.Schema<Doc>, options?: Partial<Options>): void;
+
+  function mongoose_delete<Doc>(schema: mongoose.Schema<Doc>, options?: Partial<Options>): void;
   export = mongoose_delete;
-  }
-  
+}

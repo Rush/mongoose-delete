@@ -1,6 +1,6 @@
 {
   "name": "mongoose-delete-plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Mongoose soft delete plugin",
   "author": "Damian Kaczmarek <rush@rushbase.net>",
   "contributors": [
@@ -35,7 +35,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "8.x",
-    "mongoose": "^5",
+    "mongoose": "^5.13",
     "nyc": "^15.0.0"
   }
 }
